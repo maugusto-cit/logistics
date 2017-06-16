@@ -38,9 +38,9 @@ Database - aplicação configurada para PostgreSQL.
 
 #### INSTRUÇõES
 
-`git clone `
+`git clone https://github.com/kaiocb/logistics.git`
 
-* Test `./gradlew test --info`
+* Teste `./gradlew test --info`
 
 * Build `./gradlew build && `
 
@@ -48,8 +48,15 @@ Database - aplicação configurada para PostgreSQL.
 
 #### DOCS
 
+[https://kaiocb.github.io/logistics/](Documentção - JavaDoc)
 
+##### API DOC
 
+* Run `./gradlew build && java -Dspring.profiles.active=dev -jar build/libs/logistics-0.0.1-SNAPSHOT.jar `
+* Entrar em: [http://localhost:8080/jsondoc-ui.html#]
+* Obter Documentação da URL: http://localhost:8080/jsondoc 
+
+ 
 #####PostgreSQL database setup
 * logistics
 * logistics_dev (create-drop strategy)
