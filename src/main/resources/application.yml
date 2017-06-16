@@ -1,0 +1,67 @@
+# ----------------------------------------
+# WEB PROPERTIES
+# ----------------------------------------
+# EMBEDDED SERVER CONFIGURATION (ServerProperties)
+
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: "dev"
+
+jsondoc:
+  version: 1.0
+  basePath: http://localhost:8080
+  packages[0]: logistics.controllers
+  packages[1]: logistics.domain
+
+---
+
+#
+# [ Production Configuration ]
+#
+spring:
+  profiles: prod
+  datasource:
+    url: jdbc:postgresql://${postgresl_host}:${postgresl_port}/logistics
+    username:  ${postgresl_user}
+    password: ${postgresl_password}
+    platform: POSTGRESQL
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+---
+
+#
+# [ Dev Configuration ]
+#
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:postgresql://${postgresl_host}:${postgresl_port}/logistics_dev
+    username:  ${postgresl_user}
+    password: ${postgresl_password}
+    platform: POSTGRESQL
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+
+---
+#
+# [ Test Configuration ]
+#
+spring:
+  profiles: test
+  datasource:
+    url: jdbc:h2:file:~/h2/logistics;DB_CLOSE_ON_EXIT=FALSE
+    username:  sa
+    password:
+    dbcp2:
+      driver-class-name: org.h2.Drive
+  jpa:
+    hibernate:
+      ddl-auto: create-drop

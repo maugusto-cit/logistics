@@ -1,0 +1,38 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.4.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.retry:spring-retry')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    runtime('org.postgresql:postgresql')
+    compileOnly('org.springframework.boot:spring-boot-configuration-processor')
+    testCompile("com.h2database:h2")
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('org.springframework.restdocs:spring-restdocs-mockmvc')
+
+    compile group: 'org.jsondoc', name: 'spring-boot-starter-jsondoc', version: '1.2.17'
+    compile group: 'org.jsondoc', name: 'jsondoc-ui-webjar', version: '1.2.17'
+
+}

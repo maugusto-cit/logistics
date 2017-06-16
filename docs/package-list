@@ -1,0 +1,5 @@
+logistics
+logistics.controllers
+logistics.domain
+logistics.domain.exceptions
+logistics.repositories
