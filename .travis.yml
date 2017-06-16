@@ -5,5 +5,8 @@ jdk:
 
 dist: trusty
 
+os:
+  - linux
+
 script:
   - ./gradlew test

@@ -1,5 +1,7 @@
 # Logistics Microservice
 
+[![Build Status](https://travis-ci.org/kaiocb/logistics.svg?branch=master)](https://travis-ci.org/kaiocb/logistics)
+
 O projeto consiste em construir um micro serviço capaz de suprir a lógica necessária para o funcionamento de um sistema 
 terceiro auxiliando na logística de carga.
 
