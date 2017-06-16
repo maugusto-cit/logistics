@@ -7,7 +7,7 @@ terceiro auxiliando na logística de carga.
 
 [Definição do Projeto](PROJECT.md)
 
-####Plano para execução:
+#### Plano para execução:
 * Fundamentação do micro serviço utilizando Spring Boot 1.5.4.
 * Criação do repositório Git.
 * Planejar lógica e estruturar testes antecipados (API e lógica da aplicação).
@@ -50,12 +50,12 @@ Database - aplicação configurada para PostgreSQL.
 
 #### DOCS
 
-[https://kaiocb.github.io/logistics/](Documentção - JavaDoc)
+[Documentção - JavaDoc](https://kaiocb.github.io/logistics)
 
 ##### API DOC
 
 * Run `./gradlew build && java -Dspring.profiles.active=dev -jar build/libs/logistics-0.0.1-SNAPSHOT.jar `
-* Entrar em: [http://localhost:8080/jsondoc-ui.html#]
+* Entrar em: http://localhost:8080/jsondoc-ui.html#
 * Obter Documentação da URL: http://localhost:8080/jsondoc 
 
  
