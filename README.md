@@ -47,7 +47,7 @@ Database - aplicação configurada para PostgreSQL.
 
 * Build `./gradlew build && `
 
-* Run `./gradlew build && java -Dspring.profiles.active=dev -jar build/libs/logistics-0.0.1-SNAPSHOT.jar `
+* Run `./gradlew build && java -Dspring.profiles.active=dev -Dserver.port=8080 -jar build/libs/logistics-0.0.1-SNAPSHOT.jar `
 
 #### DOCS
 
@@ -55,7 +55,7 @@ Database - aplicação configurada para PostgreSQL.
 
 ##### API DOC
 
-* Run `./gradlew build && java -Dspring.profiles.active=dev -jar build/libs/logistics-0.0.1-SNAPSHOT.jar `
+* Run `./gradlew build && java -Dspring.profiles.active=dev -Dserver.port=8080 -jar build/libs/logistics-0.0.1-SNAPSHOT.jar `
 * Entrar em: http://localhost:8080/jsondoc-ui.html#
 * Obter Documentação da URL: http://localhost:8080/jsondoc 
 
