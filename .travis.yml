@@ -12,8 +12,8 @@ script:
   - ./gradlew test
 
 deploy:
-   provider: heroku
-   api-key:
+  provider: heroku
+  api-key:
     secure: $HEROKU_API_KEY
-
-app: kaiocb-logistics
+  skip_cleanup: true
+  app: kaiocb-logistics
