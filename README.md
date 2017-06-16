@@ -32,6 +32,7 @@ terceiro auxiliando na logística de carga.
 * Configurar Git com Travis CI.
 * Gerar documentação JavaDocs e liberar em /docs
 * Gerar documentação da API /delivery - JSONDoc
+* Adicionar Heroku no projeto como cloud platform e configura-lo.
 
 #### REQUISITOS
 Java 8 ou superior
@@ -59,7 +60,7 @@ Database - aplicação configurada para PostgreSQL.
 * Obter Documentação da URL: http://localhost:8080/jsondoc 
 
  
-#####PostgreSQL database setup
+#####PostgreSQL local database setup
 * logistics
 * logistics_dev (create-drop strategy)
 
@@ -69,7 +70,4 @@ Database - aplicação configurada para PostgreSQL.
 
 Inserir em: `/etc/environment`
 
-`postgresl_host
-postgresl_port
-postgresl_user
-postgresl_password`
+`DATABASE_URL` e.q: jdbc:user:pwd@postgresql://localhost:5432/logistics_dev

@@ -24,10 +24,9 @@ jsondoc:
 spring:
   profiles: prod
   datasource:
-    url: jdbc:postgresql://${postgresl_host}:${postgresl_port}/logistics
-    username:  ${postgresl_user}
-    password: ${postgresl_password}
+    url: jdbc:${DATABASE_URL}
     platform: POSTGRESQL
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: update
@@ -41,10 +40,9 @@ spring:
 spring:
   profiles: dev
   datasource:
-    url: jdbc:postgresql://${postgresl_host}:${postgresl_port}/logistics_dev
-    username:  ${postgresl_user}
-    password: ${postgresl_password}
+    url: jdbc:${DATABASE_URL}
     platform: POSTGRESQL
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: create-drop
