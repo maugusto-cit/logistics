@@ -59,6 +59,11 @@ Database - aplicação configurada para PostgreSQL.
 * Entrar em: http://localhost:8080/jsondoc-ui.html#
 * Obter Documentação da URL: http://localhost:8080/jsondoc 
 
+Heroku Build:
+* 
+* Entrar em: https://kaiocb-logistics.herokuapp.com/jsondoc-ui.html#
+* Obter Documentação da URL: https://kaiocb-logistics.herokuapp.com/jsondoc 
+
  
 #####PostgreSQL local database setup
 * logistics
@@ -72,3 +77,11 @@ Inserir em: `/etc/environment`
 
 `DATABASE_URL` e.q: jdbc:user:pwd@postgresql://localhost:5432/logistics_dev
 
+# ON HEROKU:
+
+Utilizar: 
+https://kaiocb-logistics.herokuapp.com/jsondoc-ui.html#
+URL: https://kaiocb-logistics.herokuapp.com/jsondoc
+
+JSONDoc API:
+Utilizar para adicionar entregas (deliveries) e solicitar passos (steps), ou qualquer REST client.

@@ -18,6 +18,9 @@ jsondoc:
 #
 # [ Production Configuration ]
 #
+jsondoc:
+  basePath: https://kaiocb-logistics.herokuapp.com
+
 spring:
   profiles: prod
   datasource:
