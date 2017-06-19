@@ -5,15 +5,10 @@ jdk:
 
 dist: trusty
 
-os:
-  - linux
-
-script:
-  - ./gradlew test
 
 deploy:
   provider: heroku
   api-key:
     secure: $HEROKU_API_KEY
   skip_cleanup: true
-  app: kaiocb-logistics
+  app: lit-ocean-72307
