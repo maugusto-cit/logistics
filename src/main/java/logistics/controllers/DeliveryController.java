@@ -1,13 +1,11 @@
 package logistics.controllers;
 
-import javassist.NotFoundException;
 import logistics.domain.Delivery;
 import logistics.domain.Package;
 import logistics.domain.Step;
 import logistics.domain.exceptions.DeliveryAlredyExistsException;
 import logistics.domain.exceptions.DeliveryNotFoundException;
 import logistics.repositories.DeliveryRepository;
-import org.hibernate.annotations.NotFound;
 import org.jsondoc.core.annotation.Api;
 import org.jsondoc.core.annotation.ApiMethod;
 import org.jsondoc.core.annotation.ApiPathParam;
@@ -47,7 +45,8 @@ public class DeliveryController {
 
     @ApiMethod
     @RequestMapping(value = "/delivery/{deliveryId}/step", method = RequestMethod.GET)
-    public  @ApiResponseObject List<Step> steps(@ApiPathParam(name = "deliveryId") @PathVariable("deliveryId") Long deliveryId) {
+    public @ApiResponseObject
+    List<Step> steps(@ApiPathParam(name = "deliveryId") @PathVariable("deliveryId") Long deliveryId) {
 
         this.findDelivery(deliveryId);
 
@@ -75,9 +74,11 @@ public class DeliveryController {
 
         private Stack<Package> A, T, C;
 
-        private Package[] desirablePackageOrder;
+        private Package[] orderedPackages;
 
         public List<Step> steps = null;
+
+        private int stepCounter = 1;
 
         public Supply(Delivery delivery) {
 
@@ -85,20 +86,18 @@ public class DeliveryController {
 
                 this.delivery = delivery;
                 this.steps = new ArrayList<>();
-                this.desirablePackageOrder = new Package[delivery.getPackages().size()];
+                this.orderedPackages = new Package[delivery.getPackages().size()];
 
-                delivery.getPackages().toArray(desirablePackageOrder);
+                delivery.getPackages().toArray(orderedPackages);
 
-                this.getDesirablePackageOrder();
+                this.orderPackages();
                 this.processSupply();
             }
         }
 
         /**
-         * Strategy: order by weight to get desirable order, then search for heaviest package on A or T stacks,
-         * move those above it and move the searched package to C stack, continue to do it until all the packages are in C stack.
+         * Strategy: hanoi solution recursively
          * <p>
-         * // TODO improve comparisons and moves
          */
         private void processSupply() {
 
@@ -106,55 +105,30 @@ public class DeliveryController {
             T = new Stack<>();
             C = new Stack<>();
 
-            A.addAll(delivery.getPackages());
-            int stepCounter = 1;
+            A.addAll(Arrays.asList(orderedPackages));
 
-            while (C.size() != this.desirablePackageOrder.length) {
+            recursiveLoad(orderedPackages[0], A, C, T);
 
-                for (Package aPackage : this.desirablePackageOrder) {
-
-                    int index = A.search(aPackage);
-                    Package p;
-
-                    if (index != -1) {
-
-                        for (int i = 0; i < index - 1; i++) {
-                            p = A.pop();
-                            T.push(p);
-                            steps.add(new Step(stepCounter++, p.getId(), "A", "T"));
-                        }
-
-                        p = A.pop();
-                        C.push(p);
-                        steps.add(new Step(stepCounter++, p.getId(), "A", "C"));
-
-                    } else {
-
-                        index = T.search(aPackage);
-
-                        if (index != -1) {
-
-                            for (int i = 0; i < index - 1; i++) {
-                                p = T.pop();
-                                A.push(p);
-                                steps.add(new Step(stepCounter++, p.getId(), "T", "A"));
-                            }
-
-                            p = T.pop();
-                            C.push(p);
-                            steps.add(new Step(stepCounter++, p.getId(), "T", "C"));
-
-                        }
-                    }
-
-                }
-
-            }
         }
 
-        private void getDesirablePackageOrder() {
+        private void recursiveLoad(Package pack, Stack<Package> source, Stack<Package> destination, Stack<Package> aux) {
 
-            Arrays.sort(desirablePackageOrder,
+            if (pack.index == orderedPackages.length - 1) {
+                destination.push(source.pop());
+                steps.add(new Step(stepCounter++, pack.getId(), zone(source), zone(destination)));
+            } else {
+                recursiveLoad(orderedPackages[pack.index + 1], source, aux, destination);
+                destination.push(source.pop());
+                steps.add(new Step(stepCounter++, pack.getId(), zone(source), zone(destination)));
+                recursiveLoad(orderedPackages[pack.index + 1], aux, destination, source);
+            }
+
+        }
+
+        private void orderPackages() {
+
+            // order packages
+            Arrays.sort(orderedPackages,
                     (Package a, Package b) -> {
                         if (a.getWeight() < b.getWeight()) {
                             return 1;
@@ -165,6 +139,26 @@ public class DeliveryController {
                         return 0;
                     }
             );
+
+            // insert aux index order
+            int i = 0;
+            for (Package orderedPackage : orderedPackages) {
+                orderedPackage.index = i;
+                i++;
+            }
+
+        }
+
+        public String zone(Stack<Package> stack) {
+
+            if (stack.hashCode() == A.hashCode())
+                return "A";
+            else if (stack.hashCode() == T.hashCode())
+                return "T";
+            else if (stack.hashCode() == C.hashCode())
+                return "C";
+            else
+                return "K";
 
         }
 
