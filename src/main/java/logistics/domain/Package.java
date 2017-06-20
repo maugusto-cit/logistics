@@ -5,6 +5,8 @@ import org.jsondoc.core.annotation.ApiObjectField;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Created by alien on 6/15/17.
@@ -19,6 +21,10 @@ public class Package {
     private Long id;
 
     private Double weight;
+
+    @Transient
+    @XmlTransient
+    public int index;
 
     public Package() {
     }
